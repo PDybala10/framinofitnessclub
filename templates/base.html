@@ -16,7 +16,7 @@
                 <p class="text-xs text-gray-400">Fitness Club</p>
             </div>
             <nav class="flex-1 px-3 py-4 space-y-1 text-sm">
-                <a href="{% url 'home' %}" class="block px-3 py-2 rounded hover:bg-gray-700 {% if request.resolver_match.url_name == 'home' %}bg-gray-700{% endif %}">
+                <a href="{% url 'dashboard:home' %}" class="block px-3 py-2 rounded hover:bg-gray-700 {% if request.resolver_match.url_name == 'home' %}bg-gray-700{% endif %}">
                     Tableau de bord
                 </a>
                 {% if user.is_superuser or role == "caissier" %}
@@ -49,7 +49,7 @@
             <div class="px-6 py-4 border-t border-gray-700 text-xs text-gray-400">
                 <p class="font-medium text-gray-200">{{ user.username }}</p>
                 <p>{{ role|default:"" }}</p>
-                <form method="post" action="{% url 'logout' %}" class="mt-2">
+                <form method="post" action="{% url 'accounts:logout' %}" class="mt-2">
                     {% csrf_token %}
                     <button type="submit" class="text-gray-300 hover:text-white underline">Se déconnecter</button>
                 </form>
