@@ -1,0 +1,4 @@
+# Paramètres techniques du poste (rarement modifiés). Relancer le logiciel après modification.
+fuseau_horaire = "Africa/Douala"   # ⚠️
+port           = 8000
+multi_postes   = false             # true = accessible depuis les autres postes du réseau local (http://IP-DU-POSTE:8000)

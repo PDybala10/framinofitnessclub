@@ -1,0 +1,77 @@
+{% load static %}<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Framino Fitness Club{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+</head>
+<body class="bg-gray-100 min-h-screen">
+{% if user.is_authenticated %}
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-gray-900 text-gray-100 flex flex-col">
+            <div class="px-6 py-5 border-b border-gray-700">
+                <p class="text-lg font-bold">Framino</p>
+                <p class="text-xs text-gray-400">Fitness Club</p>
+            </div>
+            <nav class="flex-1 px-3 py-4 space-y-1 text-sm">
+                <a href="{% url 'home' %}" class="block px-3 py-2 rounded hover:bg-gray-700 {% if request.resolver_match.url_name == 'home' %}bg-gray-700{% endif %}">
+                    Tableau de bord
+                </a>
+                {% if user.is_superuser or role == "caissier" %}
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Paiements</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Caisse</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Ventes</a>
+                {% endif %}
+                {% if user.is_superuser or role == "coach" %}
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Mes clients</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Programmes</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Visites</a>
+                {% endif %}
+                {% if user.is_superuser or role == "stock" %}
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Stock</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Inventaire</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Matériel</a>
+                {% endif %}
+                {% if user.is_superuser or role == "promoteur" %}
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Rapports</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Charges</a>
+                {% endif %}
+                {% if user.is_superuser %}
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Personnel</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Clients</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Abonnements</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Paramètres</a>
+                    <a href="#" class="block px-3 py-2 rounded hover:bg-gray-700">Sauvegardes</a>
+                {% endif %}
+            </nav>
+            <div class="px-6 py-4 border-t border-gray-700 text-xs text-gray-400">
+                <p class="font-medium text-gray-200">{{ user.username }}</p>
+                <p>{{ role|default:"" }}</p>
+                <form method="post" action="{% url 'logout' %}" class="mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="text-gray-300 hover:text-white underline">Se déconnecter</button>
+                </form>
+            </div>
+        </aside>
+        <main class="flex-1 p-6 overflow-auto">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mb-4 px-4 py-3 rounded border
+                        {% if message.tags == 'error' %}bg-red-50 border-red-300 text-red-800
+                        {% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-300 text-yellow-800
+                        {% else %}bg-green-50 border-green-300 text-green-800{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+{% else %}
+    <main class="min-h-screen flex items-center justify-center">
+        {% block anonymous %}{% endblock %}
+    </main>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,192 @@
+# ============================================================
+#  PARAMÈTRES – Framino Fitness Club
+#  Modifiable À TOUT MOMENT, même après la livraison du logiciel.
+#
+#  Pour appliquer les changements (au choix) :
+#   - relancer le logiciel (start.command / start.bat) : chargement automatique
+#   - ou :  python manage.py charger_parametres
+#   - ou :  bouton « Recharger les paramètres » (menu Administrateur)
+#
+#  Règles d'édition :
+#   - Ne changez que ce qui est à droite du signe "=".
+#   - Texte entre guillemets "…" ; nombres sans guillemets ni espaces (15000, pas 15 000).
+#   - Pour ajouter un élément : copiez un bloc [[...]] entier et modifiez-le.
+#   - Ne modifiez JAMAIS le "code" d'un élément déjà utilisé (il sert à le retrouver).
+#     Pour retirer un élément : actif = false (l'historique est conservé).
+#   - Un changement de prix s'applique aux NOUVELLES ventes uniquement :
+#     les abonnements et paiements déjà enregistrés gardent leur prix d'origine.
+#   - ⚠️ = valeur à compléter.
+# ============================================================
+
+[general]
+nom_salle      = "Framino Fitness Club"
+devise         = "FCFA"                    # ⚠️
+adresse        = "⚠️ Adresse de la salle"
+telephone      = "⚠️ +237 ..."
+logo           = ""                        # ex. "config/logo.png" ; vide = pas de logo
+
+[recu]
+format          = "ticket_80mm"            # "ticket_80mm" ou "A5"
+prefixe_numero  = "REC"                    # numéro : REC-AAAAMMJJ-0001
+message_bas     = "Merci et bon entraînement !"
+
+[inscription]
+frais_inscription = 50                        # valeur de développement
+
+# ---------- Types d'abonnement (cahier §2.4) ----------
+[[abonnements]]
+code        = "MENS-CLA"
+nom         = "Mensuel classique"
+formule     = "classique"                  # "classique" ou "vip"
+duree_jours = 30
+prix        = 50                        # valeur de développement
+discipline  = ""                           # code d'une discipline, ou "" = toutes
+actif       = true
+
+[[abonnements]]
+code        = "TRIM-CLA"
+nom         = "Trimestriel classique"
+formule     = "classique"
+duree_jours = 90
+prix        = 50                        # valeur de développement
+discipline  = ""
+actif       = true
+
+[[abonnements]]
+code        = "ANN-CLA"
+nom         = "Annuel classique"
+formule     = "classique"
+duree_jours = 365
+prix        = 50                        # valeur de développement
+discipline  = ""
+actif       = true
+
+[[abonnements]]
+code        = "MENS-VIP"
+nom         = "Mensuel VIP / Personal Training"
+formule     = "vip"
+duree_jours = 30
+prix        = 50                        # valeur de développement
+discipline  = ""
+actif       = true
+
+[[abonnements]]
+code        = "TRIM-VIP"
+nom         = "Trimestriel VIP"
+formule     = "vip"
+duree_jours = 90
+prix        = 50                        # valeur de développement
+discipline  = ""
+actif       = true
+
+[[abonnements]]
+code        = "ANN-VIP"
+nom         = "Annuel VIP"
+formule     = "vip"
+duree_jours = 365
+prix        = 50                        # valeur de développement
+discipline  = ""
+actif       = true
+
+[regles_abonnement]
+date_fin_inclusive       = true            # fin = début + durée − 1 jour
+suspension_autorisee     = true            # ⚠️
+suspension_max_jours     = 30              # ⚠️
+suspension_prolonge_fin  = true            # la date de fin est décalée de la durée de suspension
+renouvellement_debut     = "fin_ancien"    # "fin_ancien" ou "date_paiement"
+
+# ---------- Disciplines (cahier §2.3) ----------
+[[disciplines]]
+code  = "MUSCU"
+nom   = "Musculation"
+type  = "Salle"
+tarif = 50                        # valeur de développement
+actif = true
+
+[[disciplines]]
+code  = "CARDIO"
+nom   = "Cardio"
+type  = "Salle"
+tarif = 50                        # valeur de développement
+actif = true
+
+[[disciplines]]
+code  = "AEROBIC"
+nom   = "Aérobic / Fitness"
+type  = "Cours collectif"
+tarif = 50                        # valeur de développement
+actif = true
+
+# ---------- Services / prestations (cahier §2.8) ----------
+[[services]]
+code          = "PARAM"
+nom           = "Prise de paramètres"
+prix          = 50                        # valeur de développement
+duree_minutes = 30
+actif         = true
+
+[[services]]
+code          = "MASSAGE"
+nom           = "Massage à la chaise"
+prix          = 50                        # valeur de développement
+duree_minutes = 20
+actif         = true
+
+[[services]]
+code          = "KINE"
+nom           = "Kinésithérapie"
+prix          = 50                        # valeur de développement
+duree_minutes = 45
+actif         = true
+
+[[services]]
+code          = "MARCHE"
+nom           = "Marche sportive"
+prix          = 50                        # valeur de développement
+duree_minutes = 60
+actif         = true
+
+[[services]]
+code          = "CHALLENGE"
+nom           = "Challenge"
+prix          = 50                        # valeur de développement
+duree_minutes = 0
+actif         = true
+
+[[services]]
+code          = "PT"
+nom           = "Personal Training (séance)"
+prix          = 50                        # valeur de développement
+duree_minutes = 60
+actif         = true
+
+# ---------- Caisse (cahier §5) ----------
+[caisse]
+modes_paiement    = ["Espèces", "Mobile Money", "Virement", "Carte bancaire", "Autre"]
+operateurs_mobile = ["Orange Money", "MTN MoMo"]   # ⚠️
+ecart_tolere      = 0                      # écart de caisse accepté sans alerte
+
+# ---------- Listes de choix (cahier §2.1, §2.2, §3.1, §4.1, §5.1, §6.1) ----------
+[listes]
+objectifs_clients    = ["Perte de poids", "Prise de masse", "Remise en forme", "Autre"]
+categories_produits  = ["Articles sportifs", "Boissons"]
+categories_materiel  = ["Cardio", "Musculation", "Accessoires"]
+categories_charges   = ["Charges fixes", "Entretien", "Provision / Réserve"]
+sexe                 = ["Masculin", "Féminin"]
+fonctions_personnel  = ["Administrateur", "Coach", "Caissier", "Agent d'entretien", "Autre"]
+etats_materiel       = ["Neuf", "Bon", "À réparer", "Hors service"]
+objets_paiement      = ["Inscription", "Abonnement", "Produit", "Service", "Personal Training", "Autre"]
+
+# ---------- Alertes (cahier §7.2) ----------
+[alertes]
+abonnement_expire_dans_jours = 7
+maintenance_dans_jours       = 7           # ⚠️
+garantie_expire_dans_jours   = 30          # ⚠️
+jour_paie_salaires           = 25          # ⚠️ jour du mois
+charge_echeance_dans_jours   = 5           # ⚠️
+
+# ---------- Sauvegarde (cahier §1.2) ----------
+[sauvegarde]
+heure_auto      = "22:00"                  # ⚠️
+dossier         = "backups"
+nombre_conserve = 30                       # ⚠️

@@ -1,0 +1,8 @@
+.venv/
+.tools/
+__pycache__/
+*.pyc
+db.sqlite3
+backups/
+media/
+.DS_Store
