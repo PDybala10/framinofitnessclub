@@ -48,6 +48,12 @@ def test_tailwind_css_is_local():
     assert len(content) > 1000
 
 
+def test_htmx_is_local():
+    js = BASE_DIR / "static" / "js" / "htmx.min.js"
+    assert js.exists()
+    assert len(js.read_text()) > 10000
+
+
 @pytest.mark.django_db
 def test_base_layout_served(client):
     response = client.get("/accounts/connexion/")
