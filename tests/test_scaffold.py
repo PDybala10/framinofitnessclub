@@ -54,6 +54,13 @@ def test_htmx_is_local():
     assert len(js.read_text()) > 10000
 
 
+def test_logo_configured_and_served():
+    with open(BASE_DIR / "config" / "parametres.toml", "rb") as f:
+        logo = tomllib.load(f)["general"]["logo"]
+    assert logo, "logo path must be set in parametres.toml"
+    assert (BASE_DIR / "static" / logo).exists()
+
+
 @pytest.mark.django_db
 def test_base_layout_served(client):
     response = client.get("/accounts/connexion/")

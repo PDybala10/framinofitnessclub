@@ -23,7 +23,7 @@ nom_salle      = "Framino Fitness Club"
 devise         = "FCFA"                    # ⚠️
 adresse        = "⚠️ Adresse de la salle"
 telephone      = "⚠️ +237 ..."
-logo           = ""                        # ex. "config/logo.png" ; vide = pas de logo
+logo           = "img/logo.png"            # image dans static/ ; vide = pas de logo
 
 [recu]
 format          = "ticket_80mm"            # "ticket_80mm" ou "A5"
